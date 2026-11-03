@@ -328,18 +328,8 @@ on fs
     mount_all /vendor/etc/fstab.universal5433
     setprop ro.crypto.fuse_sdcard true
 
-    # Start HW service manager early
-    start hwservicemanager
-
 # Restore the previous batt_capacity_max (if it exists)
     copy /efs/Battery/prev_batt_capacity_max /sys/class/power_supply/battery/batt_capacity_max
-
-on late-fs
-    # Start services for bootanim
-    start surfaceflinger
-    start bootanim
-    start configstore-hal-1-0
-    start gralloc-2-0
 
 # MIF
     chown radio radio /sys/devices/virtual/misc/multipdp/waketime

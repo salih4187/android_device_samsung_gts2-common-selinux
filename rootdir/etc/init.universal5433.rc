@@ -660,3 +660,14 @@ service argos-daemon /vendor/bin/argosd
     class main
     user system
     group system radio
+
+# Fingerprint HAL
+service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.samsung
+    # "class hal" causes a race condition on some devices due to files created
+    # in /data. As a workaround, postpone startup until later in boot once
+    # /data is mounted.
+    override
+    class late_start
+    user system
+    group system input wakelock
+    writepid /dev/cpuset/system-background/tasks

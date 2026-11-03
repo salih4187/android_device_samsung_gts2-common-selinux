@@ -87,4 +87,8 @@
     -->
     <integer name="config_deviceSupportsButtonBrightnessControl">1</integer>
 
+    <!-- Whether to post reset runnable for all clients. Needed for some older
+         vendor fingerprint HAL implementations. -->
+    <bool name="config_fingerprintPostResetRunnableForAllClients">true</bool>
+
 </resources>

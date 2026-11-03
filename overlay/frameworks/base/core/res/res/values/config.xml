@@ -401,10 +401,6 @@
 
     <!-- Disable rounded corners on windows to improve graphics performance -->
     <bool name="config_supportsRoundedCornersOnWindows">false</bool>
-
-    <!-- Whether to post reset runnable for all clients. Needed for some older
-         vendor fingerprint HAL implementations. -->
-    <bool name="config_fingerprintPostResetRunnableForAllClients">true</bool>
 	
     <!-- Device configuration indicating whether we should avoid using accelerated graphics
          in certain places to reduce RAM footprint.  This is ignored if ro.config.low_ram

@@ -231,6 +231,8 @@
        out of setting a batch size, which fixes rotation. -->
   <bool name="config_useDefaultBatchingForAccel">false</bool>
 
+    <!-- Wifi driver supports batched scan -->
+    <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
 
   <!-- Whether to allow process with media UID to access CameraServiceProxy -->
   <bool name="config_allowMediaUidForCameraServiceProxy">true</bool>

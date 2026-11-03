@@ -554,11 +554,6 @@ on charger
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor powersave
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor powersave
 
-service cameraserver /system/bin/cameraserver
-    class main
-    user cameraserver
-    group media_rw audio camera drmrpc inet shell sdcard_r system
-
 on shutdown
     # Fix permissions then store the current batt_capacity_max value in the EFS partition
     chmod 600 /sys/class/power_supply/battery/batt_capacity_max

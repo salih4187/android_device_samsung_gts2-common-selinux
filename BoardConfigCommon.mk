@@ -12,15 +12,13 @@ BOARD_VENDOR := samsung
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv8-a
-TARGET_CPU_VARIANT := cortex-a53
+TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT_RUNTIME := cortex-a57
 
 # Platform
 TARGET_BOARD_PLATFORM := exynos5
 TARGET_SLSI_VARIANT := bsp
 TARGET_SOC := exynos5433
-
-# big.LITTLE load balancing
-#ENABLE_CPUSETS := true
 
 TARGET_BOOTLOADER_BOARD_NAME := universal5433
 
@@ -68,7 +66,6 @@ TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
 TARGET_KERNEL_SOURCE := kernel/samsung/universal5433
-KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
 BOARD_KERNEL_IMAGE_NAME := zImage
 TARGET_LINUX_KERNEL_VERSION := 3.10
 
@@ -111,6 +108,9 @@ endif
 # Display
 TARGET_SCREEN_DENSITY := 320
 
+# Enable memfd - needed otherwise you get crashes like Jit thread pool  >>> system_server <<<
+TARGET_HAS_MEMFD_BACKPORT := true
+
 # FIMG2D
 BOARD_USES_SKIA_FIMGAPI := true
 BOARD_USES_NEON_BLITANTIH := true
@@ -124,56 +124,29 @@ TARGET_SEC_FP_CALL_CANCEL_ON_ENROLL_COMPLETION := true
 # Fonts
 EXTENDED_FONT_FOOTPRINT := true
 
-# Graphics
-USE_OPENGL_RENDERER := true
-
-# Low memory devices
-MALLOC_SVELTE := true
-
-BOARD_USES_EXYNOS5_COMMON_GRALLOC := true
-
-# (G)SCALER
-BOARD_USES_SCALER := true
 BOARD_USES_DT := true
 
-# Gralloc
-TARGET_USES_GRALLOC1_ADAPTER := true
-
-# ION
-TARGET_USES_ION := true
+# HDMI
+BOARD_HDMI_INCAPABLE := true
 
 # Hidl
 DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
-PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
-			   
+
+# Include path
+TARGET_SPECIFIC_HEADER_PATH += $(LOCAL_PATH)/include
+
 # Lineage hardware
 ifneq ($(findstring lineage, $(TARGET_PRODUCT)),)
 JAVA_SOURCE_OVERLAYS := \
     org.lineageos.hardware|$(LOCAL_PATH)/lineagehw|**/*.java
 endif
 
-# HDMI
-BOARD_HDMI_INCAPABLE := true
-
-# Hidl
-DEVICE_MANIFEST_FILE := device/samsung/gts2-common/manifest.xml
-
-# HWCServices
-#BOARD_USES_HWC_SERVICES := true
-SKIP_DISPLAY_BLANK_CTRL := true
-
-# Include path
-TARGET_SPECIFIC_HEADER_PATH += $(LOCAL_PATH)/include
-
 # Legacy BLOB Support
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
     ro.product.first_api_level=21
 
-# Lights
-TARGET_PROVIDES_LIBLIGHT := false
-
-# Enable memfd - needed otherwise you get crashes like Jit thread pool  >>> system_server <<<
-TARGET_HAS_MEMFD_BACKPORT := true
+# Network Routing
+TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true
 
 # Samsung OpenMAX Video
 BOARD_USE_STOREMETADATA := true
@@ -198,9 +171,6 @@ BOARD_USE_CUSTOM_COMPONENT_SUPPORT := true
 BOARD_USE_VIDEO_EXT_FOR_WFD_HDCP := false
 BOARD_USE_SINGLE_PLANE_IN_DRM := false
 
-# Power
-TARGET_POWERHAL_VARIANT := samsung
-
 # Properties
 TARGET_SYSTEM_PROP += $(LOCAL_PATH)/system.prop
 
@@ -219,9 +189,6 @@ BOARD_SEPOLICY_DIRS += device/samsung/gts2-common/sepolicy-rt
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += device/samsung/gts2-common/sepolicy-rt/private
 SELINUX_IGNORE_NEVERALLOWS := true
 
-# Sensors
-#TARGET_NO_SENSOR_PERMISSION_CHECK := true
-
 # Shims
 TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib/libbauthserver.so|libbauthtzcommon_shim.so \
@@ -232,12 +199,6 @@ TARGET_LD_SHIM_LIBS := \
 # Legacy BLOB Support
 TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
     /system/vendor/bin/hw/rild=27
-	
-# Network Routing
-TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE := true	
-
-# WFD
-BOARD_USES_WFD := true
 
 # WiFi
 BOARD_HAVE_SAMSUNG_WIFI          := true
@@ -253,6 +214,7 @@ WIFI_DRIVER_FW_PATH_STA          := "/vendor/etc/wifi/bcmdhd_sta.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/vendor/etc/wifi/bcmdhd_apsta.bin"
 #WIFI_BAND                        := 802_11_ABG
 WPA_SUPPLICANT_USE_HIDL          := true
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 
 # WiFi Configs
 PRODUCT_COPY_FILES += \

@@ -147,6 +147,8 @@ PRODUCT_PACKAGES += \
     libhwbinder \
     vndservicemanager
 
+PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
+
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/idc/ft5x06_ts.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/ft5x06_ts.idc \
